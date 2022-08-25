@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
+const $ = require('jquery');
+$.DataTable = require('datatables.net');
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
 import { Avatar, Box, ButtonBase, Card, Grid, InputAdornment, OutlinedInput, Popper } from '@mui/material';
