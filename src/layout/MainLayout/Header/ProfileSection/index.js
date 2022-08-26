@@ -41,6 +41,7 @@ import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 
 // ==============================|| PROFILE MENU ||============================== //
 
+const icons = { IconUser };
 const ProfileSection = () => {
     const theme = useTheme();
     const customization = useSelector((state) => state.customization);
@@ -111,7 +112,7 @@ const ProfileSection = () => {
                 }}
                 icon={
                     <Avatar
-                        src={User1}
+                        src={icons.IconUser}
                         sx={{
                             ...theme.typography.mediumAvatar,
                             margin: '8px 0 8px 8px !important',
@@ -159,12 +160,12 @@ const ProfileSection = () => {
                                             <Stack direction="row" spacing={0.5} alignItems="center">
                                                 <Typography variant="h4">Good Morning,</Typography>
                                                 <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                                                    Johne Doe
+                                                    Admin
                                                 </Typography>
                                             </Stack>
                                             <Typography variant="subtitle2">Project Admin</Typography>
                                         </Stack>
-                                        <OutlinedInput
+                                        {/* <OutlinedInput
                                             sx={{ width: '100%', pr: 1, pl: 2, my: 2 }}
                                             id="input-search-profile"
                                             value={value}
@@ -179,14 +180,14 @@ const ProfileSection = () => {
                                             inputProps={{
                                                 'aria-label': 'weight'
                                             }}
-                                        />
+                                        /> */}
                                         <Divider />
                                     </Box>
                                     <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                                         <Box sx={{ p: 2 }}>
                                             <UpgradePlanCard />
                                             <Divider />
-                                            <Card
+                                            {/* <Card
                                                 sx={{
                                                     bgcolor: theme.palette.primary.light,
                                                     my: 2
@@ -227,8 +228,9 @@ const ProfileSection = () => {
                                                         </Grid>
                                                     </Grid>
                                                 </CardContent>
-                                            </Card>
+                                            </Card> */}
                                             <Divider />
+
                                             <List
                                                 component="nav"
                                                 sx={{
