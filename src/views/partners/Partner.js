@@ -53,7 +53,7 @@ export default function CustomizedTables() {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 400,
+                        width: 1000,
                         bgcolor: 'background.paper',
                         borderRadius: 2,
                         boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
@@ -66,6 +66,45 @@ export default function CustomizedTables() {
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         below you can view your other details.
                     </Typography>
+                    <Box>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>Address</StyledTableCell>
+                                <StyledTableCell>Aaddhar No</StyledTableCell>
+                                <StyledTableCell>Contact No</StyledTableCell>
+                                <StyledTableCell>Pan No</StyledTableCell>
+                                <StyledTableCell align="right">More Info</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {data.map((partner) => (
+                                <StyledTableRow key={partner.uniqueId}>
+                                    <StyledTableCell>{partner.address}</StyledTableCell>
+                                    <StyledTableCell>{partner.aadharNo}</StyledTableCell>
+                                    <StyledTableCell>{partner.contactNo}</StyledTableCell>
+                                    <StyledTableCell>{partner.panNo}</StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        <Button
+                                            onClick={handleOpen}
+                                            sx={{
+                                                backgroundColor: '#e3f2fd',
+                                                color: '#616161',
+                                                boxShadow: 'none',
+                                                '&:hover': {
+                                                    color: '#ffffff',
+                                                    boxShadow: 'none'
+                                                }
+                                            }}
+                                            align="right"
+                                            variant="contained"
+                                        >
+                                            more info.
+                                        </Button>
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Box>
                 </Box>
             </Modal>
             <AddPopUp />
