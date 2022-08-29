@@ -12,7 +12,9 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { background } from '@chakra-ui/react';
 import { Box } from '@mui/system';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+
 export default function AddPopUp() {
+    const [enableColumnFilterContextMenu, setEnableColumnFilterContextMenu] = useState(true);
     const [open, setOpen] = React.useState(false);
     const [gender, SetGender] = React.useState();
     const [user, setUser] = React.useState({});
@@ -61,12 +63,13 @@ export default function AddPopUp() {
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle sx={{ fontSize: '1.5em', fontFamily: 'Inter', fontWeight: 600 }}>Add New Entry</DialogTitle>
-                <DialogContentText>you can add new entries here.</DialogContentText>
+                <DialogContentText paddingLeft="26px">you can add new entries here.</DialogContentText>
                 <DialogContent
                     sx={{
+                        margin: 'auto',
                         display: 'flex',
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        paddingLeft: '60px'
                     }}
                 >
                     <Box
@@ -85,11 +88,12 @@ export default function AddPopUp() {
                             <TextField name="panNo" onChange={handleChange} required id="outlined" label="PAN No." />
                             <TextField name="aadharNo" onChange={handleChange} required type="" id="outlined" label="Aadhar No." />
                             <TextField name="occupation" onChange={handleChange} required type="text" id="outlined" label="Occupation" />
+                            <TextField name="phone" onChange={handleChange} required type="number" id="outlined" label="Contact No." />
                             <TextField name="email" onChange={handleChange} required type="email" id="outlined" label="Email" />
                             <TextField name="dateOfBirth" onChange={handleChange} required type="date" id="outlined" />
                             <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                             <Select
-                                sx={{ width: '100px' }}
+                                sx={{ width: '140px' }}
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={gender}
