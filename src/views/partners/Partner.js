@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import { Button, Modal, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import AddPopUp from 'views/addpopup/AddPopUp';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -21,22 +22,17 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     }
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-        border: 0
-    }
-}));
+const columns = [
+    { field: 'id', headerName: 'ID' },
+    { field: 'firstName', headerName: 'Name', width: 200 },
+    { field: 'gender', headerName: 'Gender', width: 100 }
+];
 
 export default function CustomizedTables() {
     const [data, setData] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [activateRowOnFocus, setActivateRowOnFocus] = React.useState(true);
 
     React.useEffect(() => {
         fetch('http://192.168.10.21:8080/partner/1')
@@ -108,48 +104,9 @@ export default function CustomizedTables() {
                 </Box>
             </Modal>
             <AddPopUp />
-
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell>ID</StyledTableCell>
-                            <StyledTableCell>Name</StyledTableCell>
-                            <StyledTableCell>Gender</StyledTableCell>
-                            <StyledTableCell>Status</StyledTableCell>
-                            <StyledTableCell align="right">More Info</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {data.map((partner) => (
-                            <StyledTableRow key={partner.uniqueId}>
-                                <StyledTableCell>{partner.id}</StyledTableCell>
-                                <StyledTableCell>{partner.firstName}</StyledTableCell>
-                                <StyledTableCell>{partner.gender}</StyledTableCell>
-                                <StyledTableCell>{partner.status}</StyledTableCell>
-                                <StyledTableCell align="right">
-                                    <Button
-                                        onClick={handleOpen}
-                                        sx={{
-                                            backgroundColor: '#e3f2fd',
-                                            color: '#616161',
-                                            boxShadow: 'none',
-                                            '&:hover': {
-                                                color: '#ffffff',
-                                                boxShadow: 'none'
-                                            }
-                                        }}
-                                        align="right"
-                                        variant="contained"
-                                    >
-                                        more info.
-                                    </Button>
-                                </StyledTableCell>
-                            </StyledTableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <div style={{ height: 400, width: '100%' }}>
+                <DataGrid rows={data} columns={columns} pageSize={12} components={{ Toolbar: GridToolbar }} />
+            </div>
         </>
     );
 }
