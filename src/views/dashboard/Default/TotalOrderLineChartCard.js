@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import * as React from 'react';
 
 // material-ui
 import { useTheme, styled } from '@mui/material/styles';
@@ -65,11 +66,17 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 const TotalOrderLineChartCard = ({ isLoading }) => {
     const theme = useTheme();
-
+    const [data, setData] = React.useState([]);
     const [timeValue, setTimeValue] = useState(false);
     const handleChangeTime = (event, newValue) => {
         setTimeValue(newValue);
     };
+
+    React.useEffect(() => {
+        fetch('http://192.168.10.21:8080/disbursment/1')
+            .then((res) => res.json())
+            .then((res) => setData(res));
+    }, []);
 
     return (
         <>

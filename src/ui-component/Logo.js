@@ -1,6 +1,7 @@
 // material-ui
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import lendenlogo from '/home/shreyasdeshmukh/Downloads/berry-free-react-admin-template-main/src/assets/images/lendenclub.png';
 
 /**
  * if you want to use image instead of <svg> uncomment following.
@@ -23,6 +24,9 @@ const Logo = () => {
          *
          */
         <>
+            <img src={lendenlogo} style={{ width: '35px', height: '35px', marginRight: '10px' }} alt="lendenlogo" />
+
+            {/* <Avatar alt="Example Alt" src="src/assets/images/lendenclub.png" /> */}
             <Typography
                 sx={{
                     fontWeight: 900,

@@ -1,44 +1,121 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { Button, Modal, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import AddPopUp from 'views/addpopup/AddPopUp';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, gridPageCountSelector, gridPageSelector, useGridApiContext, useGridSelector } from '@mui/x-data-grid';
+import Pagination from '@mui/material/Pagination';
+import { darken, lighten } from '@mui/material/styles';
+import clsx from 'clsx';
+import Search from 'views/search/Search';
+import UpdatePopUp from 'views/updatepopup/UpdatePopUp';
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 14
-    }
-}));
+const handleClick = (event, cellValues) => {
+    console.log(cellValues.row);
+};
+
+const handleCellClick = (param, event) => {
+    event.stopPropagation();
+};
+
+const handleRowClick = (param, event) => {
+    event.stopPropagation();
+};
+
+const getBackgroundColor = (color, mode) => (mode === 'dark' ? darken(color, 0.6) : lighten(color, 0.6));
+
+const getHoverBackgroundColor = (color, mode) => (mode === 'dark' ? darken(color, 0.5) : lighten(color, 0.5));
+
+// const columns = [
+//     { field: 'id', headerName: 'ID', width: 50, type: 'number', cellClassName: 'super-app-theme--cell' },
+//     { field: 'firstName', headerName: 'First Name', width: 120 },
+//     { field: 'lastName', headerName: 'Last Name', width: 120 },
+//     // { field: 'dateOfBirth', headerName: 'Date of Birth', width: 150, type: 'date' },
+//     { field: 'panNo', headerName: 'PAN No.', width: 200 },
+//     { field: 'email', headerName: 'Email', width: 300 },
+//     {
+//         field: 'status',
+//         headerName: 'Status',
+//         width: 100,
+//         type: 'boolean',
+//         cellClassName: (params) => {
+//             if (params.value == null) {
+//                 return '';
+//             }
+
+//             return clsx('super-app', {
+//                 false: params.value == false,
+//                 true: params.value == true
+//             });
+//         }
+//     },
+//     {
+//         headerName: 'More Info',
+//         renderCell: (cellValues) => {
+//             return (
+//                 <Button
+//                     variant="contained"
+//                     color="primary"
+//                     sx={{
+//                         backgroundColor: '#bde0fe',
+//                         color: '#023047',
+//                         boxShadow: 'None',
+//                         fontFamily: 'Inter',
+//                         fontSize: '0.85em',
+//                         '&:hover': { color: 'white' }
+//                     }}
+//                     onClick={(event) => {
+//                         handleClick(event, cellValues);
+//                     }}
+//                 >
+//                     More Info
+//                 </Button>
+//             );
+//         }
+//     },
+//     {
+//         headerName: 'Update',
+//         renderCell: (cellValues) => {
+//             return <UpdatePopUp />;
+//         }
+//     }
+// ];
 
 const columns = [
     { field: 'id', headerName: 'ID' },
-    { field: 'firstName', headerName: 'Name', width: 200 },
-    { field: 'gender', headerName: 'Gender', width: 100 }
+    { field: 'title', headerName: 'Title', width: 300 },
+    { field: 'body', headerName: 'Body', width: 500 },
+    {
+        headerName: 'Update/Edit',
+        renderCell: (cellValues) => {
+            return <UpdatePopUp />;
+        }
+    }
 ];
 
-export default function CustomizedTables() {
+function CustomPagination() {
+    const apiRef = useGridApiContext();
+    const page = useGridSelector(apiRef, gridPageSelector);
+    const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+
+    return <Pagination color="primary" count={pageCount} page={page + 1} onChange={(event, value) => apiRef.current.setPage(value - 1)} />;
+}
+
+export default function Partner() {
     const [data, setData] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     React.useEffect(() => {
-        fetch('http://192.168.10.21:8080/partner/1')
+        fetch('http://192.168.10.21:8080/partner/list')
             .then((res) => res.json())
-            .then((res) => setData([...data, res]));
+            .then((res) => setData(res));
     }, []);
+    // React.useEffect(() => {
+    //     fetch('https://jsonplaceholder.typicode.com/posts')
+    //         .then((data) => data.json())
+    //         .then((data) => setData(data));
+    // }, []);
 
     return (
         <>
@@ -62,51 +139,65 @@ export default function CustomizedTables() {
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         below you can view your other details.
                     </Typography>
-                    <Box>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell>Address</StyledTableCell>
-                                <StyledTableCell>Aaddhar No</StyledTableCell>
-                                <StyledTableCell>Contact No</StyledTableCell>
-                                <StyledTableCell>Pan No</StyledTableCell>
-                                <StyledTableCell align="right">More Info</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {data.map((partner) => (
-                                <StyledTableRow key={partner.uniqueId}>
-                                    <StyledTableCell>{partner.address}</StyledTableCell>
-                                    <StyledTableCell>{partner.aadharNo}</StyledTableCell>
-                                    <StyledTableCell>{partner.contactNo}</StyledTableCell>
-                                    <StyledTableCell>{partner.panNo}</StyledTableCell>
-                                    <StyledTableCell align="right">
-                                        <Button
-                                            onClick={handleOpen}
-                                            sx={{
-                                                backgroundColor: '#e3f2fd',
-                                                color: '#616161',
-                                                boxShadow: 'none',
-                                                '&:hover': {
-                                                    color: '#ffffff',
-                                                    boxShadow: 'none'
-                                                }
-                                            }}
-                                            align="right"
-                                            variant="contained"
-                                        >
-                                            more info.
-                                        </Button>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Box>
                 </Box>
             </Modal>
-            <AddPopUp />
-            <div style={{ height: 400, width: '100%' }}>
-                <DataGrid rows={data} columns={columns} pageSize={12} components={{ Toolbar: GridToolbar }} />
-            </div>
+
+            <Box
+                sx={{
+                    display: 'inline-flex'
+                }}
+            >
+                <AddPopUp />
+                <Search setData={setData} />
+            </Box>
+
+            <Box
+                sx={{
+                    height: 400,
+                    width: '100%',
+                    '& .super-app-theme--cell': {
+                        backgroundColor: 'rgba(224, 183, 60, 0.55)',
+                        color: '#1a3e72',
+                        fontWeight: '600'
+                    },
+                    '& .super-app.false': {
+                        backgroundColor: 'rgba(157, 255, 118, 0.49)',
+                        color: '#1a3e72',
+                        fontWeight: '600'
+                    },
+                    '& .super-app.true': {
+                        backgroundColor: '#d47483',
+                        color: '#1a3e72',
+                        fontWeight: '600'
+                    }
+                }}
+            >
+                <DataGrid
+                    sx={{
+                        boxShadow: 'rgba(50, 50, 93, 0.1) 0px 50px 100px -20px, rgba(0, 0, 0, 0.2) 0px 30px 60px -30px',
+                        backgroundColor: 'white',
+                        border: 'None',
+                        borderRadius: 5,
+                        overflowY: 'hidden',
+                        fontFamily: 'Inter',
+                        padding: 3
+                    }}
+                    pagination
+                    rows={data}
+                    columns={columns}
+                    pageSize={12}
+                    components={{ Toolbar: GridToolbar, Pagination: CustomPagination }}
+                    checkboxSelection
+                    onCellClick={handleCellClick}
+                    onRowClick={handleRowClick}
+                    rowsPerPageOptions={[20, 30, 50]}
+                    // getRowId={(row) => row.id}
+                    // getRowClassName={(params) => `super-app-theme--${params.row.status}`}
+                    // filterModel={{
+                    //     items: [{ columnField: 'status', operatorValue: 'isAnyOf', value: 'Active' }]
+                    // }}
+                />
+            </Box>
         </>
     );
 }

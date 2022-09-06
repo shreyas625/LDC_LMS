@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import Investor from 'views/investors/investors';
+
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
@@ -17,7 +17,11 @@ const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 import Partner from 'views/partners/Partner';
-import Borrower from 'views/Borrower/borrower';
+import Borrower from 'views/Borrower/Borrower';
+import BankBorrower from 'views/Borrower/BankBorrower';
+import Investor from 'views/investors/Investor';
+import InvestorsBank from 'views/investors/InvestorsBank';
+import ParnterBank from 'views/partners/PartnerBank';
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -33,12 +37,24 @@ const MainRoutes = {
             element: <Partner />
         },
         {
+            path: '/pages/partner/bank',
+            element: <ParnterBank />
+        },
+        {
             path: '/pages/investor/home',
             element: <Investor />
         },
         {
             path: '/pages/borrower/home',
             element: <Borrower />
+        },
+        {
+            path: '/pages/borrower/bank',
+            element: <BankBorrower />
+        },
+        {
+            path: '/pages/investor/bank',
+            element: <InvestorsBank />
         },
         {
             path: 'dashboard',

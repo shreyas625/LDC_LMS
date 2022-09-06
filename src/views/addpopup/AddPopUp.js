@@ -1,20 +1,18 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { InputLabel, MenuItem, Select } from '@mui/material';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import TextField from '@mui/material/TextField';
+
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { background } from '@chakra-ui/react';
+
 import { Box } from '@mui/system';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 export default function AddPopUp() {
-    const [enableColumnFilterContextMenu, setEnableColumnFilterContextMenu] = React.useState(true);
     const [open, setOpen] = React.useState(false);
     const [gender, SetGender] = React.useState();
     const [user, setUser] = React.useState({});
@@ -33,14 +31,17 @@ export default function AddPopUp() {
 
     const handleUserSubmit = () => {
         console.log(user);
-        fetch('http://192.168.10.21:8080/partner', {
+        fetch('http://192.168.10.21:8080/partner/', {
             method: 'POST',
             body: JSON.stringify(user),
-            headers: { 'content-type': 'application/json' }
+            headers: { 'Content-type': 'application/json' }
         })
             .then(alert('User Data Inserted'))
             .then((res) => res.json())
-            .then((res) => console.log(res));
+            .then((res) => {
+                setUser(res);
+                console.log(res);
+            });
     };
 
     return (
@@ -54,6 +55,7 @@ export default function AddPopUp() {
                     background: '#673ab7',
                     boxShadow: 'rgba(103, 58, 183, 0.3) 0px 19px 38px, rgba(103, 58, 183, 0.22) 0px 15px 12px',
                     marginBottom: 1,
+                    marginRight: '20px',
                     '&:hover': { backgroundColor: 'black' }
                 }}
                 variant="filled"
@@ -81,6 +83,7 @@ export default function AddPopUp() {
                         autoComplete="off"
                     >
                         <div>
+                            <TextField name="uniqueId" onChange={handleChange} required id="outlined" label="Unique ID" />
                             <TextField name="firstName" onChange={handleChange} required id="outlined" label="First Name" />
                             <TextField name="middleName" onChange={handleChange} required id="outlined" label="Middle Name" />
                             <TextField name="lastName" onChange={handleChange} required id="outlined" label="Last Name" />
@@ -88,9 +91,12 @@ export default function AddPopUp() {
                             <TextField name="panNo" onChange={handleChange} required id="outlined" label="PAN No." />
                             <TextField name="aadharNo" onChange={handleChange} required type="" id="outlined" label="Aadhar No." />
                             <TextField name="occupation" onChange={handleChange} required type="text" id="outlined" label="Occupation" />
-                            <TextField name="phone" onChange={handleChange} required type="number" id="outlined" label="Contact No." />
+                            <TextField name="contactNo" onChange={handleChange} required type="number" id="outlined" label="Contact No." />
                             <TextField name="email" onChange={handleChange} required type="email" id="outlined" label="Email" />
-                            <TextField name="dateOfBirth" onChange={handleChange} required type="date" id="outlined" />
+                            <TextField name="country" onChange={handleChange} required type="text" id="outlined" label="Country" />
+                            <TextField name="state" onChange={handleChange} required type="text" id="outlined" label="State" />
+                            <TextField name="pin" onChange={handleChange} required type="number" id="outlined" label="Pin Code" />
+                            <TextField name="dataOfBirth" onChange={handleChange} required type="date" id="outlined" />
                             <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                             <Select
                                 sx={{ width: '140px' }}

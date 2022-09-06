@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import userPhoto from '/home/shreyasdeshmukh/Downloads/berry-free-react-admin-template-main/src/assets/images/Shreyas_Photo_Highres.jpeg';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -112,11 +113,14 @@ const ProfileSection = () => {
                 }}
                 icon={
                     <Avatar
-                        src={icons.IconUser}
+                        src={userPhoto}
+                        // src={icons.IconUser}
                         sx={{
                             ...theme.typography.mediumAvatar,
                             margin: '8px 0 8px 8px !important',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            border: '3px solid white',
+                            objectFit: 'cover'
                         }}
                         ref={anchorRef}
                         aria-controls={open ? 'menu-list-grow' : undefined}

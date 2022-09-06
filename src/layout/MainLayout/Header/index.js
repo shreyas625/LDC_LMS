@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Box, ButtonBase } from '@mui/material';
-
 // project imports
 import LogoSection from '../LogoSection';
 import SearchSection from './SearchSection';
