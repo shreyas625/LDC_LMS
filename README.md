@@ -1,1 +1,1 @@
-Made by Shreyas Deshmukh urf lavda
+Made by Shreyas Deshmukh

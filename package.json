@@ -2,7 +2,6 @@
     "name": "berry-material-react-free",
     "version": "3.2.0",
     "private": false,
-    "homepage": "https://berrydashboard.io/free",
     "dependencies": {
         "@chakra-ui/icons": "^2.0.9",
         "@chakra-ui/react": "^2.2.9",
