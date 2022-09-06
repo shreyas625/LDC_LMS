@@ -1,8 +1,7 @@
 {
     "name": "berry-material-react-free",
     "version": "3.2.0",
-    "proxy": "http://192.168.10.21:8080/partner/",
-    "private": true,
+    "private": false,
     "homepage": "https://berrydashboard.io/free",
     "dependencies": {
         "@chakra-ui/icons": "^2.0.9",

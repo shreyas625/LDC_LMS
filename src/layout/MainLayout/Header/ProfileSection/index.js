@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import userPhoto from '/home/shreyasdeshmukh/Downloads/berry-free-react-admin-template-main/src/assets/images/Shreyas_Photo_Highres.jpeg';
+import userPhoto from '../../../../assets/images/Shreyas_Photo_Highres.jpeg';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';

@@ -1,7 +1,7 @@
 // material-ui
 import { Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import lendenlogo from '/home/shreyasdeshmukh/Downloads/berry-free-react-admin-template-main/src/assets/images/lendenclub.png';
+import lendenlogo from '../assets/images/lendenclub.png';
 
 /**
  * if you want to use image instead of <svg> uncomment following.
