@@ -25,66 +25,10 @@ const getBackgroundColor = (color, mode) => (mode === 'dark' ? darken(color, 0.6
 
 const getHoverBackgroundColor = (color, mode) => (mode === 'dark' ? darken(color, 0.5) : lighten(color, 0.5));
 
-// const columns = [
-//     { field: 'id', headerName: 'ID', width: 50, type: 'number', cellClassName: 'super-app-theme--cell' },
-//     { field: 'firstName', headerName: 'First Name', width: 120 },
-//     { field: 'lastName', headerName: 'Last Name', width: 120 },
-//     // { field: 'dateOfBirth', headerName: 'Date of Birth', width: 150, type: 'date' },
-//     { field: 'panNo', headerName: 'PAN No.', width: 200 },
-//     { field: 'email', headerName: 'Email', width: 300 },
-//     {
-//         field: 'status',
-//         headerName: 'Status',
-//         width: 100,
-//         type: 'boolean',
-//         cellClassName: (params) => {
-//             if (params.value == null) {
-//                 return '';
-//             }
-
-//             return clsx('super-app', {
-//                 false: params.value == false,
-//                 true: params.value == true
-//             });
-//         }
-//     },
-//     {
-//         headerName: 'More Info',
-//         renderCell: (cellValues) => {
-//             return (
-//                 <Button
-//                     variant="contained"
-//                     color="primary"
-//                     sx={{
-//                         backgroundColor: '#bde0fe',
-//                         color: '#023047',
-//                         boxShadow: 'None',
-//                         fontFamily: 'Inter',
-//                         fontSize: '0.85em',
-//                         '&:hover': { color: 'white' }
-//                     }}
-//                     onClick={(event) => {
-//                         handleClick(event, cellValues);
-//                     }}
-//                 >
-//                     More Info
-//                 </Button>
-//             );
-//         }
-//     },
-//     {
-//         headerName: 'Update',
-//         renderCell: (cellValues) => {
-//             return <UpdatePopUp />;
-//         }
-//     }
-// ];
-
 const columns = [
-    { field: 'firstName', headerName: 'First Name', width: 200 },
-    { field: 'lastName', headerName: 'Last Name', width: 200 },
-    { field: 'gender', headerName: 'Gender', width: 200 },
-    { field: 'occupation', headerName: 'Occupation', width: 300 },
+    { field: 'id', headerName: 'id', width: 200 },
+    { field: 'title', headerName: 'email', width: 200 },
+    { field: 'body', headerName: 'status', width: 200 },
     {
         headerName: 'Update/Edit',
         renderCell: (cellValues) => {
@@ -101,22 +45,17 @@ function CustomPagination() {
     return <Pagination color="primary" count={pageCount} page={page + 1} onChange={(event, value) => apiRef.current.setPage(value - 1)} />;
 }
 
-export default function Partner() {
+export default function Users() {
     const [data, setData] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     React.useEffect(() => {
-        fetch('http://192.168.10.21:8080/partner/list')
-            .then((res) => res.json())
-            .then((res) => setData(res));
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then((data) => data.json())
+            .then((data) => setData(data));
     }, []);
-    // React.useEffect(() => {
-    //     fetch('https://jsonplaceholder.typicode.com/posts')
-    //         .then((data) => data.json())
-    //         .then((data) => setData(data));
-    // }, []);
 
     return (
         <>
@@ -192,11 +131,11 @@ export default function Partner() {
                     onCellClick={handleCellClick}
                     onRowClick={handleRowClick}
                     rowsPerPageOptions={[20, 30, 50]}
-                    // getRowId={(row) => row.id}
-                    // getRowClassName={(params) => `super-app-theme--${params.row.status}`}
-                    // filterModel={{
-                    //     items: [{ columnField: 'status', operatorValue: 'isAnyOf', value: 'Active' }]
-                    // }}
+                    getRowId={(row) => row.id}
+                    getRowClassName={(params) => `super-app-theme--${params.row.status}`}
+                    filterModel={{
+                        items: [{ columnField: 'status', operatorValue: 'isAnyOf', value: 'Active' }]
+                    }}
                 />
             </Box>
         </>

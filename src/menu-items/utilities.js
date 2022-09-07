@@ -10,7 +10,9 @@ import {
     IconSettings,
     IconBuildingStore,
     IconWindmill,
-    IconKey
+    IconKey,
+    IconCirclePlus,
+    IconCategory
 } from '@tabler/icons';
 
 // constant
@@ -26,86 +28,61 @@ const icons = {
     IconUser,
     IconBuildingStore,
     IconUserCheck,
-    IconUsers
+    IconUsers,
+    IconCirclePlus,
+    IconCategory
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
 
 const utilities = {
     id: 'utilities',
-    title: 'Admin',
+    title: 'Administration',
     type: 'group',
     icon: icons.IconSettings,
     children: [
-        /*{
-            id: 'authentication',
-            title: 'Admin',
-            type: 'collapse',
-            icon: icons.IconKey,
-            children: [
-                {
-                    id: 'login3',
-                    title: 'Login',
-                    type: 'item',
-                    url: '/pages/login/login3',
-                    target: true
-                },
-                {
-                    id: 'register3',
-                    title: 'Register',
-                    type: 'item',
-                    url: '/pages/register/register3',
-                    target: true
-                }
-            ]
-        },*/
-
-        {
-            id: 'utilitiesGroup',
-            title: 'Group',
-            type: 'item',
-            url: '/utilities/group',
-            icon: icons.IconUsers,
-            breadcrumbs: false
-        },
-        {
-            id: 'utilitiesRoles',
-            title: 'Roles',
-            type: 'item',
-            url: '/utilities/roles',
-            icon: icons.IconFileSettings,
-            breadcrumbs: false
-        },
         {
             id: 'utilitiesUser',
-            title: 'User',
-            type: 'item',
-            url: '/utilities/user',
-            icon: icons.IconUser,
-            breadcrumbs: false
-        }
-        /*{
-            id: 'icons',
-            title: 'Icons',
+            title: 'Admin',
             type: 'collapse',
-            icon: icons.IconWindmill,
+            url: '/utilities/admin',
+            icon: icons.IconUser,
+            breadcrumbs: true,
             children: [
                 {
-                    id: 'tabler-icons',
-                    title: 'Tabler Icons',
+                    id: 'utilitiesGroup',
+                    title: 'Users',
                     type: 'item',
-                    url: '/icons/tabler-icons',
-                    breadcrumbs: false
+                    url: '/utilitiesUser/users',
+                    icon: icons.IconUsers,
+                    breadcrumbs: true
                 },
                 {
-                    id: 'material-icons',
-                    title: 'Material Icons',
+                    id: 'utilitiesGroup',
+                    title: 'Groups',
                     type: 'item',
-                    url: '/icons/material-icons',
-                    breadcrumbs: false
+                    url: '/utilitiesUser/addgroup',
+                    icon: icons.IconUsers,
+                    breadcrumbs: true
+                },
+                {
+                    id: 'utilitiesRoles',
+                    title: 'Roles',
+                    type: 'item',
+                    url: '/utilitiesUser/roles',
+                    icon: icons.IconFileSettings,
+                    breadcrumbs: true
+                },
+                {
+                    id: 'utilitiesMenu',
+                    title: 'Menu',
+                    type: 'item',
+                    url: '/utilitiesUser/menus',
+                    icon: icons.IconCategory,
+                    breadcrumbs: true
                 }
             ]
-        }*/
+        }
     ]
 };
 

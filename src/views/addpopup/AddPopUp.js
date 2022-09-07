@@ -29,14 +29,15 @@ export default function AddPopUp() {
         setOpen(false);
     };
 
-    const handleUserSubmit = () => {
+    const handleUserSubmit = async () => {
         console.log(user);
-        fetch('http://192.168.10.21:8080/partner/', {
+        await fetch('http://192.168.10.21:8080/investor/', {
             method: 'POST',
-            body: JSON.stringify(user),
+            mode: 'no-cors',
+            data: JSON.stringify(user),
             headers: { 'Content-type': 'application/json' }
         })
-            .then(alert('User Data Inserted'))
+            .then(alert('Investor Data Inserted'))
             .then((res) => res.json())
             .then((res) => {
                 setUser(res);

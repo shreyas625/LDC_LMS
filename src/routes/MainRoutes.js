@@ -22,6 +22,7 @@ import BankBorrower from 'views/Borrower/BankBorrower';
 import Investor from 'views/investors/Investor';
 import InvestorsBank from 'views/investors/InvestorsBank';
 import ParnterBank from 'views/partners/PartnerBank';
+import Users from 'views/Admin/Users';
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -55,6 +56,10 @@ const MainRoutes = {
         {
             path: '/pages/investor/bank',
             element: <InvestorsBank />
+        },
+        {
+            path: '/utilitiesUser/users',
+            element: <Users />
         },
         {
             path: 'dashboard',

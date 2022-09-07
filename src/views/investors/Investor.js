@@ -1,42 +1,23 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-// import Table from '@mui/material/Table';
-// import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-// import TableContainer from '@mui/material/TableContainer';
-// import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-// import Paper from '@mui/material/Paper';
 import { DataGrid, GridToolbar, gridPageCountSelector, gridPageSelector, useGridApiContext, useGridSelector } from '@mui/x-data-grid';
 import Pagination from '@mui/material/Pagination';
 import AddPopUp from 'views/addpopup/AddPopUp';
 import Search from 'views/search/Search';
 import { Box } from '@mui/system';
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 14
-    }
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-        border: 0
-    }
-}));
+import UpdatePopUp from 'views/updatepopup/UpdatePopUp';
 
 const columns = [
-    { field: 'id', headerName: 'ID' },
-    { field: 'title', headerName: 'Title', width: 300 },
-    { field: 'body', headerName: 'Body', width: 600 }
+    { field: 'firstName', headerName: 'First Name', width: 200 },
+    { field: 'lastName', headerName: 'Last Name', width: 200 },
+    { field: 'gender', headerName: 'Gender', width: 100 },
+    { field: 'occupation', headerName: 'Occupation', width: 300 },
+    { field: 'status', headerName: 'Status', width: 100 },
+    {
+        headerName: 'Update/Edit',
+        renderCell: (cellValues) => {
+            return <UpdatePopUp />;
+        }
+    }
 ];
 
 function CustomPagination() {
@@ -51,7 +32,7 @@ export default function Investor() {
     const [data, setData] = React.useState([]);
 
     React.useEffect(() => {
-        fetch('http://192.168.10.21:8080/investor/1')
+        fetch('http://192.168.10.21:8080/investor/2')
             .then((res) => res.json())
             .then((res) => setData([...data, res]));
     }, []);
@@ -79,11 +60,12 @@ export default function Investor() {
                         padding: 3
                     }}
                     pagination
-                    rowsPerPageOptions={[5]}
                     rows={data}
                     columns={columns}
-                    pageSize={10}
+                    pageSize={12}
                     components={{ Toolbar: GridToolbar, Pagination: CustomPagination }}
+                    checkboxSelection
+                    rowsPerPageOptions={[20, 30, 50]}
                 />
             </div>
         </>
